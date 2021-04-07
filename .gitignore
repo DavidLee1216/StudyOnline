@@ -1,0 +1,6 @@
+.env
+/static
+/media
+__pycache__
+migrations
+workspace.code-workspace
