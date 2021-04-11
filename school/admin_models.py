@@ -9,6 +9,14 @@ class TeacherSubjectAdmin(admin.ModelAdmin):
     pass
 
 
+class TranslatorAdmin(admin.ModelAdmin):
+    pass
+
+
+class TranslatorSubjectAdmin(admin.ModelAdmin):
+    pass
+
+
 class LectureAdmin(admin.ModelAdmin):
     pass
 
