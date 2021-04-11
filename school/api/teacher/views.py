@@ -32,10 +32,10 @@ def apply_teacher(request):
         teacher.save()
     TeacherSubject.objects.filter(teacher=teacher).delete()
     for item in teach_lang:
-        subject = item['subject']
-        target = item['target']
+        subject = item['explain_lang']['lang']
+        target = item['target_lang']['lang']
         teacherSubject = TeacherSubject(
             teacher=teacher, subject=subject, target=target)
         teacherSubject.save()
     teacherSerializer = TeacherSerializer(teacher)
-    return Response(teacherSerializer, status=201)
+    return Response(data=teacherSerializer.data, status=201)

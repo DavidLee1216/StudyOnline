@@ -38,4 +38,4 @@ def apply_translator(request):
             translator=translator, subject=subject, target=target)
         translatorSubject.save()
     translatorSerializer = TranslatorSerializer(translator)
-    return Response(translatorSerializer, status=201)
+    return Response(data=translatorSerializer.data, status=201)

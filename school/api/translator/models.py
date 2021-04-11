@@ -20,10 +20,8 @@ class Translator(models.Model):
 
 class TranslatorSubject(models.Model):
     translator = models.OneToOneField(Translator, on_delete=models.CASCADE)
-    subject = models.ForeignKey(
-        to=Subject, related_name='translator_subject_language', on_delete=models.CASCADE)
-    target = models.ForeignKey(
-        to=Subject, related_name='translator_target_language', on_delete=models.CASCADE)
+    subject = models.CharField(max_length=50, blank=False, default="")
+    target = models.CharField(max_length=50, blank=False, default="")
 
     def __str__(self):
         return '[{}] {}'.format(self.teacher, self.subject, self.target)

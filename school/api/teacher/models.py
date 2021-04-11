@@ -24,20 +24,17 @@ def upload_path(instance, filename):
 
 class TeacherSubject(models.Model):
     teacher = models.OneToOneField(Teacher, on_delete=models.CASCADE)
-    subject = models.ForeignKey(
-        to=Subject, related_name='teacher_subject_language', on_delete=models.CASCADE)
-    target = models.ForeignKey(
-        to=Subject, related_name='teacher_target_language', on_delete=models.CASCADE)
+    explain = models.CharField(max_length=50, blank=False, default="")
+    target = models.CharField(max_length=50, blank=False, default="")
 
     def __str__(self):
         return '[{}] {}'.format(self.teacher, self.subject, self.target)
 
 
 class Lecture(models.Model):
-    teacher = models.ForeignKey(
-        to=Teacher, on_delete=models.CASCADE)
+    teacher = models.OneToOneField(Teacher, on_delete=models.CASCADE)
     subject = models.ForeignKey(
-        to=TeacherSubject, on_delete=models.CASCADE)
+        to=TeacherSubject, null=True, on_delete=models.CASCADE)
     ref_file = models.FileField(
         _('file url'), blank=True, null=True, upload_to=upload_path)
     upload_date = models.DateField(
