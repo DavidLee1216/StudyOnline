@@ -19,7 +19,7 @@ class Translator(models.Model):
 
 
 class TranslatorSubject(models.Model):
-    translator = models.OneToOneField(Translator, on_delete=models.CASCADE)
+    translator = models.ForeignKey(Translator, on_delete=models.CASCADE)
     subject = models.CharField(max_length=50, blank=False, default="")
     target = models.CharField(max_length=50, blank=False, default="")
 

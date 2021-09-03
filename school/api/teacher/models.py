@@ -23,7 +23,7 @@ def upload_path(instance, filename):
 
 
 class TeacherSubject(models.Model):
-    teacher = models.OneToOneField(Teacher, on_delete=models.CASCADE)
+    teacher = models.ForeignKey(Teacher, on_delete=models.CASCADE)
     explain = models.CharField(max_length=50, blank=False, default="")
     target = models.CharField(max_length=50, blank=False, default="")
 

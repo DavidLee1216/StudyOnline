@@ -32,10 +32,31 @@ def apply_teacher(request):
         teacher.save()
     TeacherSubject.objects.filter(teacher=teacher).delete()
     for item in teach_lang:
-        subject = item['explain_lang']['lang']
+        explain = item['explain_lang']['lang']
         target = item['target_lang']['lang']
         teacherSubject = TeacherSubject(
-            teacher=teacher, subject=subject, target=target)
+            teacher=teacher, explain=explain, target=target)
         teacherSubject.save()
     teacherSerializer = TeacherSerializer(teacher)
     return Response(data=teacherSerializer.data, status=201)
+
+
+@api_view(['POST'])
+@login_required
+def get_teacher(request):
+    email = request.data.get('email')
+    user = User.objects.filter(email=email).first()
+
+    teacher = Teacher.objects.filter(user=user).first()
+    teacher_object = {}
+    if teacher is not None:
+        teacher_object['about_me'] = teacher.about_me
+        teacher_object['hourly_rate'] = teacher.hourly_rate
+        teacher_object['teach_lang'] = []
+        teacherSubjects = TeacherSubject.objects.filter(teacher=teacher)
+        for item in teacherSubjects:
+            explain = item.explain
+            target = item.target
+            teacher_object['teach_lang'].append(
+                {'explain_lang': {'lang': explain}, 'target_lang': {'lang': target}})
+    return Response(data=teacher_object, status=200)
